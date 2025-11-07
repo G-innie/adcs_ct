@@ -18,7 +18,7 @@ def short_sci(x, decimals=2):
 # Generate kp values from 10^4 to 9*10^40
 kp_vals = []
 for exp in range(12, 40):  # 10^4 to 10^40
-    for mul in range(1, 40):  # 1*10^exp, 2*10^exp, ... 9*10^exp
+    for mul in range(4, 40):  # 1*10^exp, 2*10^exp, ... 9*10^exp
         kp_vals.append(0.25*mul * 10**exp)
 kp_vals = np.array(kp_vals)
 
