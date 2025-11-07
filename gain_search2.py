@@ -6,14 +6,18 @@ import subprocess
 import math
 
 # Function to convert a number to short scientific notation
-def short_sci(x):
-    exp = int(math.log10(float(x)))
-    mantissa = int(x / 10**exp)
-    return f"{mantissa}E{exp:02d}"
+def short_sci(x, decimals=2):
+    if x == 0:
+        return f"0E00"
+    exp = int(math.floor(math.log10(abs(float(x)))))
+    mantissa = float(x) / (10 ** exp)
+    mantissa_str = f"{mantissa:.{decimals}f}"
+    exp_str = f"{exp:02d}" if exp >= 0 else f"{exp:03d}"  # Handles negative exponents if needed
+    return f"{mantissa_str}E{exp_str}"
 
 # Generate kp values from 10^4 to 9*10^40
 kp_vals = []
-for exp in range(4, 40):  # 10^4 to 10^40
+for exp in range(12, 40):  # 10^4 to 10^40
     for mul in range(1, 40):  # 1*10^exp, 2*10^exp, ... 9*10^exp
         kp_vals.append(0.25*mul * 10**exp)
 kp_vals = np.array(kp_vals)
