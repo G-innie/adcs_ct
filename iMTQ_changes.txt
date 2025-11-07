@@ -1,0 +1,10 @@
+changes in the iMTQ software have been made in the following order.
+
+v2.0 affected sections 2.7.2, 3.3 and 3.4 - fixed magnetic filter formula; changed formatting; added commands;
+v2.1 affected sections 3.3 - fixed minor self test description errors;
+v2.2 affected sections 3.3, 3.4 - added new estimated rate information; removed IEPS related content; fixed selftest ERR description;
+v2.3 affected sections 3.3 - Added extended MTM commands; added command 0x0A (start estimation mode); updated command codes;
+v2.4 affected sections 3.3, 3.4, all - updated commands and paramters; fixed spelling and formatting across the document;
+
+stuff we maybe need to care about:
+- changes made in v2.3 according to Alvar
