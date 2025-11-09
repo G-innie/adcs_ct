@@ -18,7 +18,7 @@ def short_sci(x, decimals=2):
 # Generate kp values from 10^4 to 9*10^40
 kp_vals = []
 for exp in range(1, 40):  # 10^4 to 10^40
-    for mul in range(4, 40):  # 1*10^exp, 2*10^exp, ... 9*10^exp
+    for mul in range(4, 40):  # 1*10^exp, 1.25*10^exp, ..., 2*10^exp, ... 9*10^exp
         kp_vals.append(0.25*mul * 10**exp)
 kp_vals = np.array(kp_vals)
 
@@ -33,7 +33,7 @@ for i in range(len(kp_vals)):
     kp = kp_vals[i]
     kd = 10 * kp
 
-    with open('../../adcs-simulator/AOCS_oDyn_sim/data/ADCS_param.txt', 'r') as f:
+    with open('../adcs-simulator/AOCS_oDyn_sim/data/ADCS_param.txt', 'r') as f:
         lines = f.readlines()
 
     targ_line = 5
@@ -45,17 +45,17 @@ for i in range(len(kp_vals)):
     lines[targ_line] = ','.join(fields) + '\n'
 
     # Write the updated lines back to the file
-    with open('../../adcs-simulator/AOCS_oDyn_sim/data/ADCS_param.txt', 'w') as f:
+    with open('../adcs-simulator/AOCS_oDyn_sim/data/ADCS_param.txt', 'w') as f:
         f.writelines(lines)
 
     # Run the simulation
-    exe_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'adcs-simulator', 'AOCS_oDyn_sim', 'build', 'AOCS_oDyn_sim.exe'))
+    exe_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'adcs-simulator', 'AOCS_oDyn_sim', 'build', 'AOCS_oDyn_sim.exe'))
     exe_dir = os.path.dirname(exe_path)  # This will be your working dir for .exe
 
     subprocess.run([exe_path], cwd=exe_dir, stdout=subprocess.DEVNULL,) # devnull to suppress output
 
     # Read the output quaternion data
-    with open('../../adcs-simulator/AOCS_oDyn_sim/data/output/quatR_B.txt', 'r') as fh:
+    with open('../adcs-simulator/AOCS_oDyn_sim/data/output/quatR_B.txt', 'r') as fh:
         quatR_B = [list(map(float, line.strip().split(','))) for line in fh]
 
     quatR_B = np.array(quatR_B)  # list-of-lists, shape (N, 4)
@@ -79,7 +79,7 @@ for i in range(len(kp_vals)):
     max_val = np.max(angleIWant)
 
     # Find the percentage of errors that are below accepted 20 degrees in the non-eclipse phase
-    with open('../../adcs-simulator/AOCS_oDyn_sim/data/output/Eclipse_Matlab.txt', 'r') as fe:
+    with open('../adcs-simulator/AOCS_oDyn_sim/data/output/Eclipse_Matlab.txt', 'r') as fe:
         eclipse_data = [float(line.strip()) for line in fe if line.strip()] # 1 is non-eclipse, 0 is eclipse
 
     eclipse_data = np.array(eclipse_data)
