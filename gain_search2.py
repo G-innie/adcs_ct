@@ -96,3 +96,27 @@ for i in range(len(kp_vals)):
     with open('gain_search_results.txt', 'a') as fout:
         fout.write(line)
 
+# plot the statistics
+import matplotlib.pyplot as plt
+
+data = np.loadtxt('gain_search_results_h1.txt', skiprows=1)
+rng = range(0, len(data))  # change the range as needed
+kp_vals_plot = data[rng,0]
+mean_vals = data[rng,2]
+median_vals = data[rng,3]
+min_vals = data[rng,4]
+max_vals = data[rng,5]
+perc_vals = data[rng,6]
+
+plt.figure(figsize=(20, 8))
+plt.plot(kp_vals_plot, mean_vals, label='Mean Pointing Error')
+plt.plot(kp_vals_plot, median_vals, label='Median Pointing Error')
+plt.plot(kp_vals_plot, min_vals, label='Min Pointing Error')
+plt.plot(kp_vals_plot, max_vals, label='Max Pointing Error')
+plt.plot(kp_vals_plot, perc_vals, label='% Below 20 Degrees')
+plt.xlabel('Kp Gain')
+plt.ylabel('Pointing Error Statistics')
+plt.title('Pointing Error Statistics vs Kp Gain')
+plt.legend()
+plt.grid(True)
+plt.show()
