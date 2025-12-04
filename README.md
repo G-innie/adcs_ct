@@ -18,6 +18,12 @@ We are looking for gains such that the last value is as close to $100\%$ as poss
 ### gain search vs gain search 2
 `gain_search2.py` is the more fancy version of `gain_search.py`. In comparison, it calculates the percentage of the errors in the sunlight that are 20 degrees or less, and the function `short_sci` also can handle higher powers (if i remember right this is mostly for printing and saving but still kinda important).
 
+### gain_serch_results_xxx.txt data description
+- 1-3 - made with param values as in this repo, not good values to use
+- h1 - made with param values as the default in AOCS_oDyn_sim, good values to use
+- 20251204 - also made with param values as the default in AOCS_oDyn_sim but also the main.c has been played around with in the following way: noise bool in line 92 is on, albedo in line 206 is on, actuation in line 214 is 100%, activation flag in line 159 is on.
+
+
 ### other files
 Other files are just a bunch of results saved up, I also saved up plots of some more interesting results in case I want to get back to it later. The param files are here for my convenience when moving between laptops.
 

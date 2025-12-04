@@ -99,7 +99,7 @@ for i in range(len(kp_vals)):
 # plot the statistics
 import matplotlib.pyplot as plt
 
-data = np.loadtxt('gain_search_results_h1.txt', skiprows=1)
+data = np.loadtxt('gain_search_results.txt', skiprows=1)
 rng = range(0, len(data))  # change the range as needed
 kp_vals_plot = data[rng,0]
 mean_vals = data[rng,2]
@@ -108,6 +108,7 @@ min_vals = data[rng,4]
 max_vals = data[rng,5]
 perc_vals = data[rng,6]
 
+# figure
 plt.figure(figsize=(20, 8))
 plt.plot(kp_vals_plot, mean_vals, label='Mean Pointing Error')
 plt.plot(kp_vals_plot, median_vals, label='Median Pointing Error')
@@ -119,4 +120,20 @@ plt.ylabel('Pointing Error Statistics')
 plt.title('Pointing Error Statistics vs Kp Gain')
 plt.legend()
 plt.grid(True)
+
+# ticks and labels - use the short_sci function, python cannot handle printing these kinds of numbers in a readible and sensible way
+xticks = np.linspace(np.min(kp_vals_plot), np.max(kp_vals_plot), 11)
+xlabels = [short_sci(v) for v in xticks]
+ax = plt.gca()
+ax.set_xticks(xticks)
+ax.set_xticklabels(xlabels, rotation=45, ha='right')
+
 plt.show()
+
+# print ten kp values with highest percentage below 20 degrees
+sorted_indices = np.argsort(-perc_vals)  # negative for descending order
+print("Top 10 Kp values with highest percentage below 20 degrees:")
+for i in range(np.min([10, len(data)])):
+    idx = sorted_indices[i]
+    print(f"Kp: {short_sci(kp_vals_plot[idx])}, Percentage Below 20 Degrees: {perc_vals[idx]:.2f}%, Max Error: {max_vals[idx]:.2f} degrees")
+
