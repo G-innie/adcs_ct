@@ -22,10 +22,11 @@ We are looking for gains such that the last value is as close to $100\%$ as poss
 - 1-3 - made with param values as in this repo, not good values to use
 - h1 - made with param values as the default in AOCS_oDyn_sim, good values to use
 - 20251204 - also made with param values as the default in AOCS_oDyn_sim but also the main.c has been played around with in the following way: noise bool in line 92 is on, albedo in line 206 is on, actuation in line 214 is 100%, activation flag in line 159 is on.
+- 20251205 - same as 20251204 but the albedo threshold has been changed from constant to be the largest element in the last photodiodes as described in fig. 26 in M160-032
 
 
 ### other files
 Other files are just a bunch of results saved up, I also saved up plots of some more interesting results in case I want to get back to it later. The param files are here for my convenience when moving between laptops.
 
 ### to do:
-1. adding plotting of data
+1. modify the `gain_search_ekf_params.py` to do a search for good values of ekf params.
