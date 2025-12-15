@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import argparse
+from navpy import quat2dcm
 
 # Set up argument parsing, there is one input for the output file, but there will be three output files, output_file_q, output_file_ohm, output_file_com
 parser = argparse.ArgumentParser()
@@ -89,4 +90,50 @@ ax3.set_title("Estimated Commanded Dipole from OBC sim emulator")
 ax3.legend()
 ax3.grid(True)
 plt.tight_layout()
+
+# pointing error computation and plot
+fig4, ax4 = plt.subplots(figsize=(8, 4))
+
+# Grey background where in eclipse (full height of axes)
+ax4.fill_between(
+    meas_q[:,0], 0, 1,
+    where=mask,
+    transform=ax4.get_xaxis_transform(),  # span full y axis in axes coords
+    color='0.9', edgecolor='0.9'
+)
+
+pointing_error = np.zeros(meas_q.shape[0])
+zbody = np.zeros((meas_q.shape[0], 3))
+
+for i in range(meas_q.shape[0]):
+    dcm = quat2dcm(meas_q[i, 4]/1000, meas_q[i, 1:4]/1000)  # navpy uses (w, [i, j, k]) ordering
+    zbody[i,:] = dcm.T @ np.array([0, 0, 1])  # assuming body z-axis is the pointing direction
+    cos_val = np.dot(zbody[i,:], np.array([0, 0, 1]))
+    pointing_error[i] = np.degrees(np.arccos(cos_val))
+
+ax4.plot(meas_q[:,0], pointing_error)
+ax4.set_xlabel("Time")
+ax4.set_ylabel("Pointing error (degrees) from quaternion estimates")
+ax4.set_title("Pointing Error from OBC sim emulator")
+ax4.grid(True)
+plt.tight_layout()
+
+# x, y, and z body plots
+fig5, ax5 = plt.subplots(figsize=(8, 4))
+# Grey background where in eclipse (full height of axes)
+ax5.fill_between(
+    meas_q[:,0], 0, 1,
+    where=mask,
+    transform=ax5.get_xaxis_transform(),  # span full y axis in axes coords
+    color='0.9', edgecolor='0.9'
+)
+
+ax5.plot(meas_q[:,0], zbody, label=['x', 'y', 'z'])
+ax5.set_xlabel("Time")
+ax5.set_ylabel("Body axes components")
+ax5.set_title("Body Axes from Quaternion Estimates")
+ax5.grid(True)
+ax5.legend()
+plt.tight_layout()
 plt.show()
+
