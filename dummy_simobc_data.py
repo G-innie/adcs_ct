@@ -20,11 +20,11 @@ logger = logging.getLogger(__name__)
 # loop over 1000 iterations to simulate data generation
 eclipse = 0
 
-for i in range(10000):
+for i in range(1000):
     # Generate dummy data for simulation output
-    q_out = [random.random()*1000 for _ in range(4)]
-    ohm_out = [random.random()*1000 for _ in range(3)]
-    com_dip_out = [random.random()*1000 for _ in range(3)]
+    q_out = [random.randint(0, 1000) for _ in range(4)]
+    ohm_out = [random.randint(0, 1000) for _ in range(3)]
+    com_dip_out = [random.randint(0, 1000) for _ in range(3)]
 
     if i % 100 == 0:
         eclipse = 1 if eclipse == 0 else 0
