@@ -4,11 +4,11 @@ import argparse
 # Regular expressions to match the desired lines
 re_day = re.compile(r"sim_time:\s*year\s*(\d{1,4})\s*,\s*month\s*(\d{1,2})\s*,\s*day\s*(\d{1,2})")
 re_hour = re.compile(r"hours\s*(\d{1,2})\s*,\s*minutes\s*(\d{1,2})\s*,\s*seconds\s*(\d{1,2})")
-re_q = re.compile(r"q_out:\s*(-?\d+)\s*(-?\d+)\s*(-?\d+)")
-re_q3 = re.compile(r"q4\s*(-?\d+)")
-re_ohm = re.compile(r"ohm_out:\s*(-?\d+)\s*(-?\d+)\s*(-?\d+)")
-re_com = re.compile(r"com_dip_out:\s*(-?\d+)\s*(-?\d+)\s*(-?\d+)")
-re_eclipse = re.compile(r"eclipseflag:\s*(\d+)")
+re_q = re.compile(r"q_out:\s*(-?\d{1,3})\s*(-?\d{1,3})\s*(-?\d{1,3})")
+re_q3 = re.compile(r"q4\s*(-?\d{1,3})")
+re_ohm = re.compile(r"ohm_out:\s*(-?\d{1,3})\s*(-?\d{1,3})\s*(-?\d{1,3})")
+re_com = re.compile(r"com_dip_out:\s*(-?\d{1,3})\s*(-?\d{1,3})\s*(-?\d{1,3})")
+re_eclipse = re.compile(r"eclipseflag:\s*(\d{1})")
 
 
 # Set up argument parsing, there is one input for the output file, but there will be three output files, output_file_q, output_file_ohm, output_file_com
