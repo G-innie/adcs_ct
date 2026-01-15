@@ -2,8 +2,8 @@ import re
 import argparse
 
 # Regular expressions to match the desired lines
-re_day = re.compile(r"sim_time:\s*year\s*(\d+)\s*,\s*month\s*(\d+)\s*,\s*day\s*(\d+)")
-re_hour = re.compile(r"hours\s*(\d+)\s*,\s*minutes\s*(\d+)\s*,\s*seconds\s*(\d+)")
+re_day = re.compile(r"sim_time:\s*year\s*(\d{1,4})\s*,\s*month\s*(\d{1,2})\s*,\s*day\s*(\d{1,2})")
+re_hour = re.compile(r"hours\s*(\d{1,2})\s*,\s*minutes\s*(\d{1,2})\s*,\s*seconds\s*(\d{1,2})")
 re_q = re.compile(r"q_out:\s*(-?\d+)\s*(-?\d+)\s*(-?\d+)")
 re_q3 = re.compile(r"q4\s*(-?\d+)")
 re_ohm = re.compile(r"ohm_out:\s*(-?\d+)\s*(-?\d+)\s*(-?\d+)")

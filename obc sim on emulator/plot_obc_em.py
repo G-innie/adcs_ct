@@ -20,6 +20,12 @@ meas_ohm = np.loadtxt(f"{args.output_file}_ohm.txt")
 meas_com = np.loadtxt(f"{args.output_file}_com.txt")
 eclipse = np.loadtxt(f"{args.output_file}_eclipse.txt")
 
+n = np.min([meas_q.shape[0], meas_ohm.shape[0], meas_com.shape[0], eclipse.shape[0]])
+meas_q = meas_q[0:n, :]
+meas_ohm = meas_ohm[0:n, :]
+meas_com = meas_com[0:n, :]
+eclipse = eclipse[0:n, :]
+
 mask = eclipse[:,1].astype(bool)
 
 # labels for plots
